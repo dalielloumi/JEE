@@ -1,8 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>User Management</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -81,60 +87,42 @@
 <body>
     <h1>User Management</h1>
     <h2>Create User</h2>
-    <form action="createUser" method="post">
+    <form action="AdminServlet?action=createUser" method="post">
+        <!-- Updated form action with servlet URL pattern and action parameter -->
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
         <label for="type">Type:</label>
         <select id="type" name="type">
-        <option value="admin">Administrator</option>
+            <option value="admin">Administrator</option>
             <option value="teacher">Teacher</option>
-            
             <option value="print">Drawing agent</option>
         </select><br>
         <button type="submit" class="button">Create User</button>
     </form>
     <hr>
-    <h2>Manage Users</h2>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        <tr>
-            <td>User1</td>
-            <td>Regular</td>
-            <td>Active</td>
-            <td>
-                <form action="activateUser" method="post">
-                    <input type="hidden" name="username" value="User1">
-                    <button type="submit" class="button">Activate</button>
-                </form>
-                <form action="deactivateUser" method="post">
-                    <input type="hidden" name="username" value="User1">
-                    <button type="submit" class="button">Deactivate</button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>User2</td>
-            <td>Administrator</td>
-            <td>Inactive</td>
-            <td>
-                <form action="activateUser" method="post">
-                    <input type="hidden" name="username" value="User2">
-                    <button type="submit" class="button">Activate</button>
-                </form>
-                <form action="deactivateUser" method="post">
-                    <input type="hidden" name="username" value="User2">
-                    <button type="submit" class="button">Deactivate</button>
-                </form>
-            </td>
-        </tr>
-        <!-- Add rows for other users as needed -->
+   <h1>User Management</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Type</th>
+                <th>Activated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="user" items="${requestScope.userList}">
+                <tr>
+                    <td>${user.nom}</td>
+                    <td>${user.password}</td>
+                    <td>${user.type}</td>
+                    <td>${user.activated()}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
     </table>
 </body>
 </html>
+
