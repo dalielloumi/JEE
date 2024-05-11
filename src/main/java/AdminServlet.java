@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
 
 public class AdminServlet extends HttpServlet {
 
@@ -26,10 +24,15 @@ public class AdminServlet extends HttpServlet {
             boolean activated = Boolean.parseBoolean(request.getParameter("activated"));
 
             User user = new User(nom, password, type, activated);
-     
-          
 
-            response.sendRedirect("login.jsp");
+            try {
+                createUser(user);
+                // Redirect to home.jsp after creating the user
+                response.sendRedirect("home.jsp");
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace(); // Handle the exception appropriately
+                response.sendRedirect("error.jsp");
+            }
         } else {
             response.sendRedirect("error.jsp");
         }
@@ -42,6 +45,7 @@ public class AdminServlet extends HttpServlet {
             ps.setString(1, user.getNom());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getType());
+            ps.setBoolean(4, user.isActivated());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("User Created Successfully");
@@ -50,25 +54,4 @@ public class AdminServlet extends HttpServlet {
             }
         }
     }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<User> userList = new ArrayList<>();
-        try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement ps = con.prepareStatement("SELECT nom, type, activated FROM user")) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String nom = rs.getString("username");
-                String password = rs.getString("password");
-                String type = rs.getString("type");
-                boolean activated = rs.getBoolean("activated");
-                userList.add(new User(nom, password, type, activated));
-                
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        request.setAttribute("userList", userList);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
-    }
-    
-
 }

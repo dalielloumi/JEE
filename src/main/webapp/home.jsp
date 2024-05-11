@@ -87,20 +87,15 @@
 <body>
     <h1>User Management</h1>
     <h2>Create User</h2>
-    <form action="AdminServlet?action=createUser" method="post">
-        <!-- Updated form action with servlet URL pattern and action parameter -->
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <label for="type">Type:</label>
-        <select id="type" name="type">
-            <option value="admin">Administrator</option>
-            <option value="teacher">Teacher</option>
-            <option value="print">Drawing agent</option>
-        </select><br>
-        <button type="submit" class="button">Create User</button>
-    </form>
+      <div class="container">
+        <center><h2>Admin</h2>
+      <a href="addUser.jsp"><button type="submit" class="button">Add User</button></a>
+      <a href="addmatiere.jsp"><button type="submit" class="button">Add Matiere</button></a>
+      <a href="addgroupe.jsp"><button type="submit" class="button">Add Groupe</button></a>     
+      </center>
+    </div>
+    
+
     <hr>
    <h1>User Management</h1>
     <table border="1">
