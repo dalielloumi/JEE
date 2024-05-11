@@ -1,3 +1,4 @@
+package tn.iit.model;
 public class User {
     private String nom;
     private String password;
