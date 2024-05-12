@@ -28,7 +28,7 @@ public class AthentificationServlet extends HttpServlet {
 	            PrintWriter out = response.getWriter();
 	            response.setContentType("text/html");
 	            Class.forName("com.mysql.cj.jdbc.Driver");
-	            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jee", "root", "");
+	            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/examjee", "root", "");
 	            String n = request.getParameter("username");
 	            String p = request.getParameter("password");
 	            PreparedStatement ps = con.prepareStatement("SELECT nom, type FROM user WHERE nom=? AND password=?");
@@ -45,7 +45,7 @@ public class AthentificationServlet extends HttpServlet {
 	                    rd.forward(request, response);
 	                }
 	                else if ("AgentDeTirage".equals(userType)) {
-	                    RequestDispatcher rd = request.getRequestDispatcher("AgentDeTirage.jsp");
+	                    RequestDispatcher rd = request.getRequestDispatcher("Tirage.jsp");
 	                    rd.forward(request, response);
 	                }else {
 	                    out.println("<font color=red size =18>Invalid user type!<br>");

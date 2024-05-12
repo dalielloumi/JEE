@@ -83,8 +83,8 @@ String dateFormatee = sdf.format(date);
                 <th>État</th>
             </tr>
             <tr>
-                <td>Enseignant 1</td>
-                <td></td>
+                <td>Mr Flen Fouleni</td>
+                <td> 23 </td>
                 <td><a href="telechargerDocument.jsp?document=nomDuDocument.pdf">Télécharger</a></td>
                 <td>
                     <button class="print" onclick="window.print()">Imprimer</button>
