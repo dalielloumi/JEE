@@ -11,6 +11,4 @@ public class Group {
 		this.niveau = niveau;
 		this.groupeNumber = groupeNumber;
 	}
-
-
 }
